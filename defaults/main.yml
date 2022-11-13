@@ -1,0 +1,4 @@
+---
+postgres_exporter_version: 0.11.1
+postgres_exporter_force_install: false
+postgres_exporter_web_listen_address: "0.0.0.0:9187"

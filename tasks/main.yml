@@ -1,0 +1,21 @@
+---
+- name: Check if postgres_exporter is installed
+  ansible.builtin.stat:
+    path: "/usr/local/bin/postgres_exporter"
+  register: postgres_exporter_binary
+
+- name: Install postgres_exporter
+  ansible.builtin.include_tasks: install.yml
+  when: not postgres_exporter_binary.stat.exists or postgres_exporter_force_install
+
+- name: Configure postgres_exporter
+  ansible.builtin.import_tasks: configure.yml
+  tags:
+    - postgres_exporter.configure
+
+- name: Ensure Postgres exporter is enabled on boot
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: postgres-exporter
+    enabled: true
+    state: started

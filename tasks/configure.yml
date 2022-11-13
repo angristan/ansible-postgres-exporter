@@ -1,0 +1,9 @@
+---
+- name: Copy the Postgres Exporter systemd service file
+  ansible.builtin.template:
+    src: postgres-exporter.service.j2
+    dest: /etc/systemd/system/postgres-exporter.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart postgres-exporter

@@ -1,0 +1,27 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Prometheus Postgres exporter
+After=network.target
+
+[Service]
+Type=simple
+User=postgres
+Group=postgres
+ExecStart=/usr/local/bin/postgres_exporter \
+    --web.listen-address={{ postgres_exporter_web_listen_address }}
+
+SyslogIdentifier=postgres-exporter
+Restart=always
+Environment=DATA_SOURCE_NAME="user=postgres host=/var/run/postgresql/ sslmode=disable"
+
+PrivateTmp=yes
+ProtectHome=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=yes
+
+[Install]
+WantedBy=multi-user.target
