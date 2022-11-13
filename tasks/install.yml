@@ -26,5 +26,5 @@
     mode: 0750
     owner: postgres
     group: postgres
-  notify: Restart postgres_exporter
+  notify: Restart postgres-exporter
   when: not ansible_check_mode

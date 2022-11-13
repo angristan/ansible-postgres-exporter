@@ -1,5 +1,5 @@
 ---
-- name: Restart postgres_exporter
+- name: Restart postgres-exporter
   ansible.builtin.systemd:
     daemon_reload: true
     name: postgres-exporter
